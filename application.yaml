@@ -12,6 +12,31 @@ spec:
     path: dev
   destination: 
     server: https://kubernetes.default.svc
+    namespace: myapp
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+
+    automated:
+      selfHeal: true
+      prune: true
+---
+piVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mysecond-argo-application
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/MandalKoch/ArgoCdtest
+    targetRevision: HEAD
+    path: dev
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: mysecondapp
 
   syncPolicy:
     syncOptions:
